@@ -15,75 +15,90 @@
     <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-ipad-retina-152x152.png"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link href="css/lib/pulse.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark">
-    <div class="d-flex min-vh-100 justify-content-center">
+    <div class="d-flex min-vh-100 justify-content-center align-items-center">
         <div class="card col-sm-12 col-md-8 col-lg-6 bg-secondary-subtle">
-            <div class="card-header align-content-center justify-content-start">
+            <div class="d-flex card-header align-items-center justify-content-between">
+                <h1 class="h1">Hippo Weather App</h1>
                 <img src="weatherHippo.svg" alt="Icon" class="col-1">
             </div>
-            <div id="querySettings" style="display:block"" class="card-body">
-                <div>
-                    <label for="txtLat" class="form-label mx-2 mt-2">Latitude: </label> <input type="text" id="txtLat" placeholder="Enter Latitude" class="form-control" required>
-                    <label for="txtLong" class="form-label mx-2 mt-2">Longitude: </label> <input type="text" id="txtLong" placeholder="Enter Longitude" class="form-control" required>
+            <form id="querySettings" style="display:block" class="card-body">
+                <h4>Location:</h4>
+                <hr>
+                <div class="d-flex mb-3">
+                    <label for="txtLat" class="form-label mx-2 mt-2">Latitude: </label> <input type="text" id="txtLat" placeholder="Latitude" class="form-control" required>
+                    <label for="txtLong" class="form-label mx-2 mt-2">Longitude: </label> <input type="text" id="txtLong" placeholder="Longitude" class="form-control" required>
                 </div>
+                <h4>Settings:</h4>
+                <hr>
                 <div class="mt-2">
-                    <label for="txtTempUnit" class="form-label text-nowrap mx-2">Temperature Unit:</label>
-                    <select name="txtTempUnit" id="txtTempUnit" class="form-select">
-                        <option value="fahrenheit" selected>Fahrenheit</option>
-                        <option value="">Celsius</option>
-                    </select>
-                    <label for="txtTimeZone" class="form-label text-nowrap mx-2">Time Zone:</label>
-                    <select name="timezone" id="txtTimeZone" class="form-select">
-                        <option value="">Not set (GMT+0)</option>
-                        <option value="auto">Automatically detect time zone</option>
-                        <option value="GMT">GMT+0</option>
-                        <option value="America%2FAnchorage">America - Anchorage</option>
-                        <option value="America%2FLos_Angeles">America - Los Angeles</option>
-                        <option value="America%2FDenver">America - Denver</option>
-                        <option value="America%2FChicago" selected>America - Chicago</option>
-                        <option value="America%2FNew_York">America - New York</option>
-                        <option value="America%2FSao_Paulo">America - Sao Paulo</option>
-                        <option value="Europe%2FLondon">Europe - London</option>
-                        <option value="Europe%2FBerlin">Europe - Berlin</option>
-                        <option value="Europe%2FMoscow">Europe - Moscow</option>
-                        <option value="Africa%2FCairo">Africa - Cairo</option>
-                        <option value="Asia%2FBangkok">Asia - Bangkok</option>
-                        <option value="Asia%2FSingapore">Asia - Singapore</option>
-                        <option value="Asia%2FTokyo">Asia - Tokyo</option>
-                        <option value="Australia%2FSydney">Australia - Sydney</option>
-                        <option value="Pacific%2FAuckland">Pacific - Auckland</option>
-                    </select>
-                    <label for="txtWindSpdUnit" class="form-label text-nowrap mx-2">Wind Speed Unit:</label>
-                    <select name="txtWindSpdUnit" id="txtWindSpdUnit" class="form-select">
-                        <option value="" selected>km/h</option>
-                        <option value="ms">m/s</option>
-                        <option value="mph" selected>mph</option>
-                        <option value="kn">Knots</option>
-                    </select>
-                    <label for="txtPrecipUnit" class="form-label text-nowrap mx-2">Precipitation Unit:</label>
-                    <select name="txtPrecipUnit" id="txtPrecipUnit" class="form-select">
-                        <option value="">Millimeter</option>
-                        <option value="inch" selected>Inch</option>
-                    </select>
-                    <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+                    <div class="d-flex align-items-center">
+                        <label for="txtTempUnit" class="form-label me-2">Temperature Unit:</label>
+                        <select name="txtTempUnit" id="txtTempUnit" class="form-select me-2">
+                            <option value="fahrenheit" selected>°F</option>
+                            <option value="">°C</option>
+                        </select>
+                        <label for="txtTimeZone" class="form-label mx-2">Time Zone:</label>
+                        <select name="timezone" id="txtTimeZone" class="form-select">
+                            <option value="">Not set (GMT+0)</option>
+                            <option value="auto">Automatically detect time zone</option>
+                            <option value="GMT">GMT+0</option>
+                            <option value="America%2FAnchorage">America - Anchorage</option>
+                            <option value="America%2FLos_Angeles">America - Los Angeles</option>
+                            <option value="America%2FDenver">America - Denver</option>
+                            <option value="America%2FChicago" selected>America - Chicago</option>
+                            <option value="America%2FNew_York">America - New York</option>
+                            <option value="America%2FSao_Paulo">America - Sao Paulo</option>
+                            <option value="Europe%2FLondon">Europe - London</option>
+                            <option value="Europe%2FBerlin">Europe - Berlin</option>
+                            <option value="Europe%2FMoscow">Europe - Moscow</option>
+                            <option value="Africa%2FCairo">Africa - Cairo</option>
+                            <option value="Asia%2FBangkok">Asia - Bangkok</option>
+                            <option value="Asia%2FSingapore">Asia - Singapore</option>
+                            <option value="Asia%2FTokyo">Asia - Tokyo</option>
+                            <option value="Australia%2FSydney">Australia - Sydney</option>
+                            <option value="Pacific%2FAuckland">Pacific - Auckland</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <label for="txtWindSpdUnit" class="form-label me-2">Wind Speed Unit:</label>
+                        <select name="txtWindSpdUnit" id="txtWindSpdUnit" class="form-select me-2">
+                            <option value="">km/h</option>
+                            <option value="ms">m/s</option>
+                            <option value="mph" selected>mph</option>
+                            <option value="kn">Knots</option>
+                        </select>
+                        <label for="txtPrecipUnit" class="form-label mx-2">Precipitation Unit:</label>
+                        <select name="txtPrecipUnit" id="txtPrecipUnit" class="form-select">
+                            <option value="">Millimeter</option>
+                            <option value="inch" selected>Inch</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button id="btnSubmit" type="button" class="btn btn-primary col-11" aria-label="Submit">Submit</button>
+                    </div>
                 </div>
-            </div>
-            <div id="forecastData" style="display:none" class="card-body">
-                <div id="currWeather" class="card-body justify-content-center">
-                    
+            </form>
+            <div id="forecastData" style="display:none" class="card-body" aria-live="polite">
+                <div id="currWeatherBox">
+                    <h4 class="h4">Current Weather</h4>
+                    <hr>
+                    <div id="currWeather" class="card-body justify-content-center"></div>
                 </div>
                 <div id="dailyWeather">
                     <h4 class="h4">Daily Weather:</h4>
                     <hr>
-                    <div id="dailyCards" class="d-flex overflow-x-auto"></div>
+                    <div id="dailyCards" class="d-flex overflow-x-auto mb-3"></div>
                 </div>
                 <div id="hourlyWeather" class="mt-2">
                     <h4 class="h4">Hourly Weather:</h4>
                     <hr>
-                    <div id="hourlyCards" class="overflow-x-auto"></div>
+                    <div id="hourlyCards" class="d-flex overflow-x-auto"></div>
                 </div>
+                <hr class="hr"></hr>
+                <h6 class="h6 fw-light fst-italic text-center">Data courtesy of the <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></h6>
             </div>
         </div>
     </div>
@@ -97,61 +112,399 @@
             let tempUnit = document.querySelector('#txtTempUnit').value
             let timezone = document.querySelector('#txtTimeZone').value
             let windSpdUnit = document.querySelector('#txtWindSpdUnit').value
-            let precipUnit = document.querySelector('#txtPrecipUnit').value  
+            let precipUnit = document.querySelector('#txtPrecipUnit').value
+            let weatherCodeInd = {                                                      // from https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c
+                	"0":{
+                		"day":{
+                			"description":"Sunny",
+                			"image":"http://openweathermap.org/img/wn/01d@2x.png"
+                		},
+                		"night":{
+                			"description":"Clear",
+                			"image":"http://openweathermap.org/img/wn/01n@2x.png"
+                		}
+                	},
+                	"1":{
+                		"day":{
+                			"description":"Mainly Sunny",
+                			"image":"http://openweathermap.org/img/wn/01d@2x.png"
+                		},
+                		"night":{
+                			"description":"Mainly Clear",
+                			"image":"http://openweathermap.org/img/wn/01n@2x.png"
+                		}
+                	},
+                	"2":{
+                		"day":{
+                			"description":"Partly Cloudy",
+                			"image":"http://openweathermap.org/img/wn/02d@2x.png"
+                		},
+                		"night":{
+                			"description":"Partly Cloudy",
+                			"image":"http://openweathermap.org/img/wn/02n@2x.png"
+                		}
+                	},
+                	"3":{
+                		"day":{
+                			"description":"Cloudy",
+                			"image":"http://openweathermap.org/img/wn/03d@2x.png"
+                		},
+                		"night":{
+                			"description":"Cloudy",
+                			"image":"http://openweathermap.org/img/wn/03n@2x.png"
+                		}
+                	},
+                	"45":{
+                		"day":{
+                			"description":"Foggy",
+                			"image":"http://openweathermap.org/img/wn/50d@2x.png"
+                		},
+                		"night":{
+                			"description":"Foggy",
+                			"image":"http://openweathermap.org/img/wn/50n@2x.png"
+                		}
+                	},
+                	"48":{
+                		"day":{
+                			"description":"Rime Fog",
+                			"image":"http://openweathermap.org/img/wn/50d@2x.png"
+                		},
+                		"night":{
+                			"description":"Rime Fog",
+                			"image":"http://openweathermap.org/img/wn/50n@2x.png"
+                		}
+                	},
+                	"51":{
+                		"day":{
+                			"description":"Light Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"53":{
+                		"day":{
+                			"description":"Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"55":{
+                		"day":{
+                			"description":"Heavy Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Heavy Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"56":{
+                		"day":{
+                			"description":"Light Freezing Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Freezing Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"57":{
+                		"day":{
+                			"description":"Freezing Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Freezing Drizzle",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"61":{
+                		"day":{
+                			"description":"Light Rain",
+                			"image":"http://openweathermap.org/img/wn/10d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Rain",
+                			"image":"http://openweathermap.org/img/wn/10n@2x.png"
+                		}
+                	},
+                	"63":{
+                		"day":{
+                			"description":"Rain",
+                			"image":"http://openweathermap.org/img/wn/10d@2x.png"
+                		},
+                		"night":{
+                			"description":"Rain",
+                			"image":"http://openweathermap.org/img/wn/10n@2x.png"
+                		}
+                	},
+                	"65":{
+                		"day":{
+                			"description":"Heavy Rain",
+                			"image":"http://openweathermap.org/img/wn/10d@2x.png"
+                		},
+                		"night":{
+                			"description":"Heavy Rain",
+                			"image":"http://openweathermap.org/img/wn/10n@2x.png"
+                		}
+                	},
+                	"66":{
+                		"day":{
+                			"description":"Light Freezing Rain",
+                			"image":"http://openweathermap.org/img/wn/10d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Freezing Rain",
+                			"image":"http://openweathermap.org/img/wn/10n@2x.png"
+                		}
+                	},
+                	"67":{
+                		"day":{
+                			"description":"Freezing Rain",
+                			"image":"http://openweathermap.org/img/wn/10d@2x.png"
+                		},
+                		"night":{
+                			"description":"Freezing Rain",
+                			"image":"http://openweathermap.org/img/wn/10n@2x.png"
+                		}
+                	},
+                	"71":{
+                		"day":{
+                			"description":"Light Snow",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Snow",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"73":{
+                		"day":{
+                			"description":"Snow",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Snow",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"75":{
+                		"day":{
+                			"description":"Heavy Snow",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Heavy Snow",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"77":{
+                		"day":{
+                			"description":"Snow Grains",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Snow Grains",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"80":{
+                		"day":{
+                			"description":"Light Showers",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Showers",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"81":{
+                		"day":{
+                			"description":"Showers",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Showers",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"82":{
+                		"day":{
+                			"description":"Heavy Showers",
+                			"image":"http://openweathermap.org/img/wn/09d@2x.png"
+                		},
+                		"night":{
+                			"description":"Heavy Showers",
+                			"image":"http://openweathermap.org/img/wn/09n@2x.png"
+                		}
+                	},
+                	"85":{
+                		"day":{
+                			"description":"Light Snow Showers",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Snow Showers",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"86":{
+                		"day":{
+                			"description":"Snow Showers",
+                			"image":"http://openweathermap.org/img/wn/13d@2x.png"
+                		},
+                		"night":{
+                			"description":"Snow Showers",
+                			"image":"http://openweathermap.org/img/wn/13n@2x.png"
+                		}
+                	},
+                	"95":{
+                		"day":{
+                			"description":"Thunderstorm",
+                			"image":"http://openweathermap.org/img/wn/11d@2x.png"
+                		},
+                		"night":{
+                			"description":"Thunderstorm",
+                			"image":"http://openweathermap.org/img/wn/11n@2x.png"
+                		}
+                	},
+                	"96":{
+                		"day":{
+                			"description":"Light Thunderstorms With Hail",
+                			"image":"http://openweathermap.org/img/wn/11d@2x.png"
+                		},
+                		"night":{
+                			"description":"Light Thunderstorms With Hail",
+                			"image":"http://openweathermap.org/img/wn/11n@2x.png"
+                		}
+                	},
+                	"99":{
+                		"day":{
+                			"description":"Thunderstorm With Hail",
+                			"image":"http://openweathermap.org/img/wn/11d@2x.png"
+                		},
+                		"night":{
+                			"description":"Thunderstorm With Hail",
+                			"image":"http://openweathermap.org/img/wn/11n@2x.png"
+                		}
+                	}
+                }  
+            const now = new Date()
             let hourlyInnerHtml = ''
             let dailyInnerHtml = ''
-            let fetchResponse = await fetch(`${WEATHER_API_BASE_URL}latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,sunrise,sunset,precipitation_probability_max&hourly=temperature_2m,precipitation_probability,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=${timezone}&wind_speed_unit=${windSpdUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipUnit}`)
+            let normalUrl = `${WEATHER_API_BASE_URL}latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,sunrise,sunset,precipitation_probability_max&hourly=temperature_2m,precipitation_probability,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m`
+
+            if(timezone != ""){
+                normalUrl += `&timezone=${timezone}`
+            }
+
+            if(windSpdUnit != ""){
+                normalUrl += `&wind_speed_unit=${windSpdUnit}`
+            }
+
+            if(tempUnit != ""){
+                normalUrl += `&temperature_unit=${tempUnit}`
+            }
+
+            if(precipUnit != ""){
+                normalUrl += `&precipitation_unit=${precipUnit}`
+            }
+
+            let fetchResponse = await fetch(normalUrl)
             let data = await fetchResponse.json()
+            let currTime = new Date(data.current.time).toLocaleString()
+            let windUnit = data.current_units.wind_speed_10m
+            if(windUnit == "mp/h"){
+                windUnit = "mph"
+            }
             document.querySelector('#currWeather').innerHTML = 
                 `
-                <h3>Current Forecast:</h3>
-                <hr>
-                <div class="justify-content-center">
-                    <p>Latitude = ${data.latitude}, Longitude = ${data.longitude}</p>
-                    <p>Temp: ${data.current.temperature_2m}${data.current_units.temperature_2m}</p>
+                <div class="card d-flex bg-primary bg-opacity-25" tabindex="0" aria-label="Current temperature at latitude: ${data.latitude}, longitude: ${data.longitude} at ${currTime}. Temperature: ${data.current.temperature_2m}${data.current_units.temperature_2m}. Humidity: ${data.current.relative_humidity_2m}${data.current_units.relative_humidity_2m}. Weather conditions: ${weatherCodeInd[data.current.weather_code].day.description}.">
+                    <div class="card-body align-items-center d-md-flex gap-2">
+                        <div class="text-center">
+                            <p>Latitude = ${data.latitude}, Longitude = ${data.longitude}</p>
+                            <p class="fw-light">${currTime}</p>
+                        </div>
+                        <vr class="vr d-none d-md-block"></vr>
+                        <hr class="hr d-block d-md-none"></hr>
+                        <div class="justify-content-start">
+                            <p class="text-center align-items-center h3"><img src="${weatherCodeInd[data.current.weather_code].day.image}" alt="Weather condition:${weatherCodeInd[data.current.weather_code].day.description}">  ${weatherCodeInd[data.current.weather_code].day.description}</p>
+                            <p class="text-start"><i class="bi bi-thermometer-half me-3"></i> Temperature : ${data.current.temperature_2m}${data.current_units.temperature_2m}</p>
+                            <p class="text-start"><i class="bi bi-moisture me-3"></i> Humidity : ${data.current.relative_humidity_2m}${data.current_units.relative_humidity_2m}</p>
+                            <p class="text-start"><i class="bi bi-wind me-3"></i> Wind Speed : ${data.current.wind_speed_10m}${windUnit}</p>
+                            <p class="text-start"><i class="bi bi-umbrella-fill me-3"></i> ${data.current.precipitation} ${data.current_units.precipitation}</p>
+                        </div>
+                    </div>
+                    <button id="btnNewLocation" class="btn btn-primary col-12" aria-label="Get Weather for a New Location">Get Weather for a New Location</button>
                 </div>
                 `
+                document.querySelector('#btnNewLocation').addEventListener('click', () => {
+                    document.querySelector('#forecastData').style = "display: none"
+                    document.querySelector('#querySettings').style = "display: block"
+                })
             data.daily.time.forEach((element, index) => {
-                let time = new Date(data.daily.time[index]).toLocaleDateString()
-                let sunrise = new Date(data.daily.sunrise[index]).toLocaleTimeString()
-                let sunset = new Date(data.daily.sunset[index]).toLocaleTimeString()
-                dailyInnerHtml += 
-                    `
-                    <div class="card col-6 mx-2 border shadow border-primary rounded"
-                        <div class="card-body d-block-flex text-center">
-                            <div class="mt-2 text-center">
-                                <p>${time}</p>
-                                <hr>
-                            </div>
-                            <div class="justify-content-center text-center">
-                                <p class="fw-bold"> ${data.daily.temperature_2m_max[index]} ${data.daily_units.temperature_2m_min}</p>
-                                <p class="fw-light"> ${data.daily.temperature_2m_min[index]} ${data.daily_units.temperature_2m_min}</p>
-                                <p>Precipitation Prob: ${data.daily.precipitation_probability_max[index]}% </p>
-                                <div class="d-flex justify-content-center">
-                                    <i class="bi bi-sunrise">  ${sunrise} ----- ${sunset}  <i class="bi bi-sunset"></i></i>
+                let time = new Date(data.daily.time[index])
+                if(time >= now){
+                    time = time.toLocaleString()
+                    let sunrise = new Date(data.daily.sunrise[index]).toLocaleTimeString()
+                    let sunset = new Date(data.daily.sunset[index]).toLocaleTimeString()
+                    dailyInnerHtml += 
+                        `
+                        <div class="card col-6 mx-2 border shadow border-primary rounded bg-primary bg-opacity-25" tabindex="0" role="group" aria-label="Daily Forecast for ${time}. High: ${data.daily.temperature_2m_max[index]}${data.daily_units.temperature_2m_min}. Low: ${data.daily.temperature_2m_min[index]}${data.daily_units.temperature_2m_min}. ${data.daily.precipitation_probability_max[index]}% chance of precipitation. Weather Conditions: ${weatherCodeInd[data.daily.weather_code[index]].day.description}.">
+                            <div class="card-body d-block-flex text-center">
+                                <div class="mt-2 text-center">
+                                    <p>${time}</p>
+                                    <hr>
+                                </div>
+                                <div class="justify-content-center text-center mx-1">
+                                    <p class="fw-bold"> ${data.daily.temperature_2m_max[index]} ${data.daily_units.temperature_2m_min}</p>
+                                    <p class="fw-light"> ${data.daily.temperature_2m_min[index]} ${data.daily_units.temperature_2m_min}</p>
+                                    <p>Weather Conditions: </p>
+                                    <p>${weatherCodeInd[data.daily.weather_code[index]].day.description} <img src="${weatherCodeInd[data.daily.weather_code[index]].day.image}" alt="Weather Condition: ${weatherCodeInd[data.daily.weather_code[index]].day.description}"</p>
+                                    <p>Precipitation Prob: ${data.daily.precipitation_probability_max[index]}% </p>
+                                    <div class="d-flex justify-content-center">
+                                        <i class="bi bi-sunrise">  ${sunrise} ----- ${sunset}  <i class="bi bi-sunset"></i></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    `
+                        `
+                }
             })
             data.hourly.time.forEach((element, index) => {
-                let time = new Date(element).toLocaleString()
-                hourlyInnerHtml += 
-                    `
-                    <div class="card d-flex overflow-x-auto mx-2 border shadow border-primary rounded"
-                        <div class="card-body">
-                            <div>
-                                <p>${time}</p>
-                                <hr>
-                            </div>
-                            <div>
-                                <p>Temp: ${data.hourly.temperature_2m[index]}${data.hourly_units.temperature_2m}   Humidity: ${data.hourly.relative_humidity_2m[index]}${data.hourly_units.relative_humidity_2m}</p>
-                                <p>Precipitation | Prob: ${data.hourly.precipitation_probability[index]}%  Amount: ${data.hourly.precipitation[index]} ${data.hourly_units.precipitation}
+                let time = new Date(element)
+                if(time >= now){
+                    time = time.toLocaleString()
+                    let windUnit = data.hourly_units.wind_speed_10m
+                    if(windUnit == "mp/h"){
+                        windUnit = "mph"
+                    }
+                    hourlyInnerHtml += 
+                        `
+                        <div class="card col-6 mx-2 border shadow border-primary rounded bg-primary bg-opacity-25" tabindex="0" role="group" aria-label="Hourly Forecast for ${time}. Temp: ${data.hourly.temperature_2m[index]}${data.hourly_units.temperature_2m}. ${data.hourly.precipitation_probability[index]}% chance of precipitation. Weather Conditions: ${weatherCodeInd[data.hourly.weather_code[index]].day.description}.">
+                            <div class="card-body d-block-flex text-center">
+                                <div class="mt-2 text-center">
+                                    <p>${time}</p>
+                                    <hr>
+                                </div>
+                                <div class="text-center">
+                                    <p>Temp: ${data.hourly.temperature_2m[index]}${data.hourly_units.temperature_2m}   Humidity: ${data.hourly.relative_humidity_2m[index]}${data.hourly_units.relative_humidity_2m}</p>
+                                    <p>Weather Conditions: </p>
+                                    <p>${weatherCodeInd[data.hourly.weather_code[index]].day.description} <img src="${weatherCodeInd[data.hourly.weather_code[index]].day.image}" alt="Weather Condition: ${weatherCodeInd[data.hourly.weather_code[index]].day.description}"</p>
+                                    <p>Wind: ${data.hourly.wind_speed_10m[index]}${windUnit}</p>
+                                    <p>Precipitation:</p>
+                                    <p>Prob: ${data.hourly.precipitation_probability[index]}%  Amount: ${data.hourly.precipitation[index]} ${data.hourly_units.precipitation}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    `
+                        `
+                }
             })
             document.querySelector('#dailyCards').innerHTML = dailyInnerHtml
             document.querySelector('#hourlyCards').innerHTML = hourlyInnerHtml
