@@ -1,0 +1,107 @@
+<!-- hippos-weather-master-FINAL.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Hippos Weather App">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1C3E78"/>
+      <stop offset="1" stop-color="#0E2240"/>
+    </linearGradient>
+
+    <!-- Crescent moon cutout -->
+    <mask id="moon">
+      <rect width="1024" height="1024" fill="#000"/>
+      <circle cx="800" cy="200" r="88" fill="#fff"/>
+      <circle cx="840" cy="172" r="78" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- ── Background ───────────────────────────────── -->
+  <rect width="1024" height="1024" rx="180" fill="url(#bg)"/>
+
+  <!-- ── Stars ────────────────────────────────────── -->
+  <g fill="#EAF3FF" opacity="0.85">
+    <circle cx="160" cy="165" r="7"/>
+    <circle cx="255" cy="248" r="5"/>
+    <circle cx="340" cy="148" r="6"/>
+    <circle cx="530" cy="128" r="6"/>
+    <circle cx="628" cy="210" r="4"/>
+    <circle cx="136" cy="330" r="4"/>
+    <circle cx="430" cy="232" r="5"/>
+  </g>
+
+  <!-- ── Moon ─────────────────────────────────────── -->
+  <g mask="url(#moon)">
+    <circle cx="800" cy="200" r="88" fill="#FFD166"/>
+  </g>
+
+  <!-- ── Cloud ─────────────────────────────────────── -->
+  <path fill="#EEF4FF"
+        d="M218,370
+           C218,294 278,240 354,256
+           C390,194 468,166 538,200
+           C598,166 682,190 714,258
+           C790,260 840,312 828,384
+           C876,412 868,490 806,510
+           H298
+           C240,510 208,450 218,370 Z"/>
+
+  <!-- ── Drizzle ────────────────────────────────────── -->
+  <g stroke="#7DE3FF" stroke-width="16" stroke-linecap="round" fill="none" opacity="0.95">
+    <path d="M318 535 C300 578 290 604 275 648"/>
+    <path d="M400 540 C382 588 372 618 355 665"/>
+    <path d="M482 535 C464 580 454 608 437 655"/>
+    <path d="M680 538 C662 582 652 608 635 654"/>
+    <path d="M762 544 C744 595 734 624 716 672"/>
+  </g>
+
+  <!-- ── Hippo ───────────────────────────────────────
+       Front-facing so the face reads clearly at 60 px
+       ─────────────────────────────────────────────── -->
+
+  <!-- body -->
+  <rect x="288" y="730" width="448" height="240" rx="120"
+        fill="#B0AECA" stroke="#08162E" stroke-width="14"
+        stroke-linejoin="round"/>
+
+  <!-- legs -->
+  <rect x="340" y="890" width="108" height="134" rx="48"
+        fill="#B0AECA" stroke="#08162E" stroke-width="14"
+        stroke-linejoin="round"/>
+  <rect x="576" y="890" width="108" height="134" rx="48"
+        fill="#B0AECA" stroke="#08162E" stroke-width="14"
+        stroke-linejoin="round"/>
+
+  <!-- head -->
+  <rect x="298" y="590" width="428" height="280" rx="140"
+        fill="#B0AECA" stroke="#08162E" stroke-width="14"
+        stroke-linejoin="round"/>
+
+  <!-- ears -->
+  <circle cx="368" cy="600" r="58"
+          fill="#B0AECA" stroke="#08162E" stroke-width="14"/>
+  <circle cx="656" cy="600" r="58"
+          fill="#B0AECA" stroke="#08162E" stroke-width="14"/>
+  <!-- inner ear -->
+  <circle cx="368" cy="600" r="28" fill="#9E9BB8" stroke="none"/>
+  <circle cx="656" cy="600" r="28" fill="#9E9BB8" stroke="none"/>
+
+  <!-- snout -->
+  <rect x="366" y="710" width="292" height="148" rx="74"
+        fill="#9E9BB8" stroke="#08162E" stroke-width="14"
+        stroke-linejoin="round"/>
+
+  <!-- eyes  (large for legibility at 60 px) -->
+  <circle cx="436" cy="672" r="22" fill="#08162E" stroke="none"/>
+  <circle cx="588" cy="672" r="22" fill="#08162E" stroke="none"/>
+  <!-- eye shines -->
+  <circle cx="446" cy="662" r="7" fill="#EAF3FF" stroke="none" opacity="0.8"/>
+  <circle cx="598" cy="662" r="7" fill="#EAF3FF" stroke="none" opacity="0.8"/>
+
+  <!-- nostrils -->
+  <circle cx="458" cy="768" r="13" fill="#08162E" stroke="none" opacity="0.9"/>
+  <circle cx="566" cy="768" r="13" fill="#08162E" stroke="none" opacity="0.9"/>
+
+  <!-- smile -->
+  <path d="M448 810 C480 838 544 838 576 810"
+        fill="none" stroke="#08162E" stroke-width="13"
+        stroke-linecap="round" opacity="0.6"/>
+</svg>

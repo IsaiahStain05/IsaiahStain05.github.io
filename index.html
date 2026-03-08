@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="mobile-web-app-capable" content="yes"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+ 
+    <title>Hippo's Weather App</title> 
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> 
+    <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone-60x60.png"> 
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-ipad-76x76.png"> 
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-iphone-retina-120x120.png"> 
+    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-ipad-retina-152x152.png"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="css/lib/pulse.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+    <div class="d-flex min-vh-100 justify-content-center">
+        <div class="card col-sm-12 col-md-8 col-lg-6 bg-secondary-subtle">
+            <div class="card-header align-content-center justify-content-start">
+                <img src="weatherHippo.svg" alt="Icon" class="col-1">
+            </div>
+            <div id="querySettings" style="display:block"" class="card-body">
+                <div>
+                    <label for="txtLat" class="form-label mx-2 mt-2">Latitude: </label> <input type="text" id="txtLat" placeholder="Enter Latitude" class="form-control" required>
+                    <label for="txtLong" class="form-label mx-2 mt-2">Longitude: </label> <input type="text" id="txtLong" placeholder="Enter Longitude" class="form-control" required>
+                </div>
+                <div class="mt-2">
+                    <label for="txtTempUnit" class="form-label text-nowrap mx-2">Temperature Unit:</label>
+                    <select name="txtTempUnit" id="txtTempUnit" class="form-select">
+                        <option value="fahrenheit" selected>Fahrenheit</option>
+                        <option value="">Celsius</option>
+                    </select>
+                    <label for="txtTimeZone" class="form-label text-nowrap mx-2">Time Zone:</label>
+                    <select name="timezone" id="txtTimeZone" class="form-select">
+                        <option value="">Not set (GMT+0)</option>
+                        <option value="auto">Automatically detect time zone</option>
+                        <option value="GMT">GMT+0</option>
+                        <option value="America%2FAnchorage">America - Anchorage</option>
+                        <option value="America%2FLos_Angeles">America - Los Angeles</option>
+                        <option value="America%2FDenver">America - Denver</option>
+                        <option value="America%2FChicago" selected>America - Chicago</option>
+                        <option value="America%2FNew_York">America - New York</option>
+                        <option value="America%2FSao_Paulo">America - Sao Paulo</option>
+                        <option value="Europe%2FLondon">Europe - London</option>
+                        <option value="Europe%2FBerlin">Europe - Berlin</option>
+                        <option value="Europe%2FMoscow">Europe - Moscow</option>
+                        <option value="Africa%2FCairo">Africa - Cairo</option>
+                        <option value="Asia%2FBangkok">Asia - Bangkok</option>
+                        <option value="Asia%2FSingapore">Asia - Singapore</option>
+                        <option value="Asia%2FTokyo">Asia - Tokyo</option>
+                        <option value="Australia%2FSydney">Australia - Sydney</option>
+                        <option value="Pacific%2FAuckland">Pacific - Auckland</option>
+                    </select>
+                    <label for="txtWindSpdUnit" class="form-label text-nowrap mx-2">Wind Speed Unit:</label>
+                    <select name="txtWindSpdUnit" id="txtWindSpdUnit" class="form-select">
+                        <option value="" selected>km/h</option>
+                        <option value="ms">m/s</option>
+                        <option value="mph" selected>mph</option>
+                        <option value="kn">Knots</option>
+                    </select>
+                    <label for="txtPrecipUnit" class="form-label text-nowrap mx-2">Precipitation Unit:</label>
+                    <select name="txtPrecipUnit" id="txtPrecipUnit" class="form-select">
+                        <option value="">Millimeter</option>
+                        <option value="inch" selected>Inch</option>
+                    </select>
+                    <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            <div id="forecastData" style="display:none" class="card-body">
+                <div id="currWeather" class="card-body justify-content-center">
+                    
+                </div>
+                <div id="dailyWeather">
+                    <h4 class="h4">Daily Weather:</h4>
+                    <hr>
+                    <div id="dailyCards" class="d-flex overflow-x-auto"></div>
+                </div>
+                <div id="hourlyWeather" class="mt-2">
+                    <h4 class="h4">Hourly Weather:</h4>
+                    <hr>
+                    <div id="hourlyCards" class="overflow-x-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        const WEATHER_API_BASE_URL = "https://api.open-meteo.com/v1/forecast?"
+
+        document.querySelector('#btnSubmit').addEventListener('click', async () => {
+            let latitude = document.querySelector('#txtLat').value.trim()
+            let longitude = document.querySelector('#txtLong').value.trim()
+            let tempUnit = document.querySelector('#txtTempUnit').value
+            let timezone = document.querySelector('#txtTimeZone').value
+            let windSpdUnit = document.querySelector('#txtWindSpdUnit').value
+            let precipUnit = document.querySelector('#txtPrecipUnit').value  
+            let hourlyInnerHtml = ''
+            let dailyInnerHtml = ''
+            let fetchResponse = await fetch(`${WEATHER_API_BASE_URL}latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,sunrise,sunset,precipitation_probability_max&hourly=temperature_2m,precipitation_probability,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=${timezone}&wind_speed_unit=${windSpdUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipUnit}`)
+            let data = await fetchResponse.json()
+            document.querySelector('#currWeather').innerHTML = 
+                `
+                <h3>Current Forecast:</h3>
+                <hr>
+                <div class="justify-content-center">
+                    <p>Latitude = ${data.latitude}, Longitude = ${data.longitude}</p>
+                    <p>Temp: ${data.current.temperature_2m}${data.current_units.temperature_2m}</p>
+                </div>
+                `
+            data.daily.time.forEach((element, index) => {
+                let time = new Date(data.daily.time[index]).toLocaleDateString()
+                let sunrise = new Date(data.daily.sunrise[index]).toLocaleTimeString()
+                let sunset = new Date(data.daily.sunset[index]).toLocaleTimeString()
+                dailyInnerHtml += 
+                    `
+                    <div class="card col-6 mx-2 border shadow border-primary rounded"
+                        <div class="card-body d-block-flex text-center">
+                            <div class="mt-2 text-center">
+                                <p>${time}</p>
+                                <hr>
+                            </div>
+                            <div class="justify-content-center text-center">
+                                <p class="fw-bold"> ${data.daily.temperature_2m_max[index]} ${data.daily_units.temperature_2m_min}</p>
+                                <p class="fw-light"> ${data.daily.temperature_2m_min[index]} ${data.daily_units.temperature_2m_min}</p>
+                                <p>Precipitation Prob: ${data.daily.precipitation_probability_max[index]}% </p>
+                                <div class="d-flex justify-content-center">
+                                    <i class="bi bi-sunrise">  ${sunrise} ----- ${sunset}  <i class="bi bi-sunset"></i></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `
+            })
+            data.hourly.time.forEach((element, index) => {
+                let time = new Date(element).toLocaleString()
+                hourlyInnerHtml += 
+                    `
+                    <div class="card d-flex overflow-x-auto mx-2 border shadow border-primary rounded"
+                        <div class="card-body">
+                            <div>
+                                <p>${time}</p>
+                                <hr>
+                            </div>
+                            <div>
+                                <p>Temp: ${data.hourly.temperature_2m[index]}${data.hourly_units.temperature_2m}   Humidity: ${data.hourly.relative_humidity_2m[index]}${data.hourly_units.relative_humidity_2m}</p>
+                                <p>Precipitation | Prob: ${data.hourly.precipitation_probability[index]}%  Amount: ${data.hourly.precipitation[index]} ${data.hourly_units.precipitation}
+                            </div>
+                        </div>
+                    </div>
+                    `
+            })
+            document.querySelector('#dailyCards').innerHTML = dailyInnerHtml
+            document.querySelector('#hourlyCards').innerHTML = hourlyInnerHtml
+            document.querySelector('#querySettings').style = "display:none"
+            document.querySelector('#forecastData').style = "display:block"
+        })
+    </script>
+</body>
+</html>
