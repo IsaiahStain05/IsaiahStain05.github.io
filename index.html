@@ -10,21 +10,21 @@
     <title>Hippo's Weather App</title> 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> 
     <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone-60x60.png"> 
-    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-ipad-76x76.png"> 
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-ipad-76x76.png"> 						<!-- Mobile "Add to Home Screen" stuff -->
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-iphone-retina-120x120.png"> 
     <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-ipad-retina-152x152.png"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">		<!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css" rel="stylesheet">		<!-- Style CDN -->
 </head>
 <body class="bg-dark">
     <div class="d-flex min-vh-100 justify-content-center align-items-center">
-        <div class="card col-sm-12 col-md-8 col-lg-6 bg-secondary-subtle">
-            <div class="d-flex card-header align-items-center justify-content-between">
-                <h1 class="h1">Hippo Weather App</h1>
+        <div class="card col-sm-12 col-md-8 col-lg-6 bg-secondary-subtle">									<!-- Sets up a card to hold all query settings and forecasts -->
+            <div class="d-flex card-header align-items-center justify-content-between">						<!-- Header for both tabs -->
+                <h1 class="h1">Hippo's Weather App</h1>
                 <img src="weatherHippo.svg" alt="Icon" class="col-1">
             </div>
-            <form id="querySettings" style="display:block" class="card-body">
+            <form id="querySettings" style="display:block" class="card-body">								<!-- Allows the user to input their latitude and longitude and set which units they want to use -->
                 <h4>Location:</h4>
                 <hr>
                 <div class="d-flex mb-3">
@@ -76,44 +76,46 @@
                             <option value="inch" selected>Inch</option>
                         </select>
                     </div>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">											<!-- Button to send everything to the API (see event listener in script tag) -->
                         <button id="btnSubmit" type="button" class="btn btn-primary col-11" aria-label="Submit">Submit</button>
                     </div>
                 </div>
             </form>
-            <div id="forecastData" style="display:none" class="card-body" aria-live="polite">
-                <div id="currWeatherBox">
+            <div id="forecastData" style="display:none" class="card-body" aria-live="polite">			<!-- Sets up a card body to hold all forecast data -->
+                <div id="currWeatherBox">																<!-- Sets up a header for current weather and a div to hold the current weather data later -->
                     <h4 class="h4">Current Weather</h4>
                     <hr>
                     <div id="currWeather" class="card-body justify-content-center"></div>
                 </div>
-                <div id="dailyWeather">
+                <div id="dailyWeather">																	<!-- Sets up a header for daily weather and a div to hold the daily weather data cards later -->
                     <h4 class="h4">Daily Weather:</h4>
                     <hr>
                     <div id="dailyCards" class="d-flex overflow-x-auto mb-3"></div>
                 </div>
-                <div id="hourlyWeather" class="mt-2">
+                <div id="hourlyWeather" class="mt-2">													<!-- Sets up a header for hourly weather and a div to hold the hourly weather data cards later -->
                     <h4 class="h4">Hourly Weather:</h4>
                     <hr>
                     <div id="hourlyCards" class="d-flex overflow-x-auto"></div>
                 </div>
                 <hr class="hr"></hr>
-                <h6 class="h6 fw-light fst-italic text-center">Data courtesy of the <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></h6>
+                <h6 class="h6 fw-light fst-italic text-center">Data courtesy of the <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></h6>		<!-- Credits to the owners of the API -->
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script>
-        const WEATHER_API_BASE_URL = "https://api.open-meteo.com/v1/forecast?"
+        const WEATHER_API_BASE_URL = "https://api.open-meteo.com/v1/forecast?"				// A base url to be added onto later with the settings
 
-        document.querySelector('#btnSubmit').addEventListener('click', async () => {
-            let latitude = document.querySelector('#txtLat').value.trim()
+        document.querySelector('#btnSubmit').addEventListener('click', async () => {		// On location/unit submission button click, do this
+
+            let latitude = document.querySelector('#txtLat').value.trim()					// Gets all values from the form that was submitted
             let longitude = document.querySelector('#txtLong').value.trim()
             let tempUnit = document.querySelector('#txtTempUnit').value
             let timezone = document.querySelector('#txtTimeZone').value
             let windSpdUnit = document.querySelector('#txtWindSpdUnit').value
             let precipUnit = document.querySelector('#txtPrecipUnit').value
-            let weatherCodeInd = {                                                      // from https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c
+
+            let weatherCodeInd = {                                                      // from https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c - weather code interpretations for use later
                 	"0":{
                 		"day":{
                 			"description":"Sunny",
@@ -395,35 +397,38 @@
                 		}
                 	}
                 }  
-            const now = new Date()
-            let hourlyInnerHtml = ''
-            let dailyInnerHtml = ''
-            let normalUrl = `${WEATHER_API_BASE_URL}latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,sunrise,sunset,precipitation_probability_max&hourly=temperature_2m,precipitation_probability,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m`
+            const now = new Date()														// Creates a date to be compared to so the app only shows current and future weather data
+            let hourlyInnerHtml = ''													// Creates a base variable that the innerHtml of the hourlyCards div will be set to eventually
+            let dailyInnerHtml = ''														// Creates a base variable that the innerHtml of the dailyCards div will be set to eventually
+            let normalUrl = `${WEATHER_API_BASE_URL}latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,sunrise,sunset,precipitation_probability_max&hourly=temperature_2m,precipitation_probability,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m`				// Creates a base url with the all of our current, hourly, and daily information wants
 
-            if(timezone != ""){
+            if(timezone != ""){											// URL Error handling for default timezone = "" (GMT +0 - from above select)
                 normalUrl += `&timezone=${timezone}`
             }
 
-            if(windSpdUnit != ""){
+            if(windSpdUnit != ""){										// URL Error handling for default windSpdUnit = "" (km/h - from above select)
                 normalUrl += `&wind_speed_unit=${windSpdUnit}`
             }
 
-            if(tempUnit != ""){
+            if(tempUnit != ""){											// URL Error handling for default tempUnit = "" (° Celsius - from above select)
                 normalUrl += `&temperature_unit=${tempUnit}`
             }
 
-            if(precipUnit != ""){
+            if(precipUnit != ""){										// URL Error handling for default precipUnit = "" (Millimeter - from above select)
                 normalUrl += `&precipitation_unit=${precipUnit}`
             }
 
-            let fetchResponse = await fetch(normalUrl)
+            let fetchResponse = await fetch(normalUrl)					// Fetches to the API and converts the response to a json object
             let data = await fetchResponse.json()
-            let currTime = new Date(data.current.time).toLocaleString()
-            let windUnit = data.current_units.wind_speed_10m
+
+            let currTime = new Date(data.current.time).toLocaleString()		// Converts the current time (TIME OF LAST SCAN) to a string
+
+            let windUnit = data.current_units.wind_speed_10m			// Makes mph appear instead of mp/h
             if(windUnit == "mp/h"){
                 windUnit = "mph"
             }
-            document.querySelector('#currWeather').innerHTML = 
+
+            document.querySelector('#currWeather').innerHTML = 			// Creates a daily weather card with location, time, weather condition, temperature, humidity, wind speed, precipitation amount, and a button to enter a new location
                 `
                 <div class="card d-flex bg-primary bg-opacity-25" tabindex="0" aria-label="Current temperature at latitude: ${data.latitude}, longitude: ${data.longitude} at ${currTime}. Temperature: ${data.current.temperature_2m}${data.current_units.temperature_2m}. Humidity: ${data.current.relative_humidity_2m}${data.current_units.relative_humidity_2m}. Weather conditions: ${weatherCodeInd[data.current.weather_code].day.description}.">
                     <div class="card-body align-items-center d-md-flex gap-2">
@@ -444,13 +449,14 @@
                     <button id="btnNewLocation" class="btn btn-primary col-12" aria-label="Get Weather for a New Location">Get Weather for a New Location</button>
                 </div>
                 `
-                document.querySelector('#btnNewLocation').addEventListener('click', () => {
+                document.querySelector('#btnNewLocation').addEventListener('click', () => {				// Handles getting weather for a new location
                     document.querySelector('#forecastData').style = "display: none"
                     document.querySelector('#querySettings').style = "display: block"
                 })
-            data.daily.time.forEach((element, index) => {
+
+            data.daily.time.forEach((element, index) => {									// Creates a new daily forecast card for each entry in the response json. Cards contain date/time, max temp of the day, min temp of the day, weather condition, precipitation chance, and sunrise and sunset times.
                 let time = new Date(data.daily.time[index])
-                if(time >= now){
+                if(time >= now){															// Makes sure the cards are only for current or future days
                     time = time.toLocaleString()
                     let sunrise = new Date(data.daily.sunrise[index]).toLocaleTimeString()
                     let sunset = new Date(data.daily.sunset[index]).toLocaleTimeString()
@@ -477,9 +483,10 @@
                         `
                 }
             })
-            data.hourly.time.forEach((element, index) => {
+
+            data.hourly.time.forEach((element, index) => {						// Creates a new hourly forecast card for each entry in the response json. Cards contain time, temp, weather condition, wind speed, precipitation chance, and precipitation amount.
                 let time = new Date(element)
-                if(time >= now){
+                if(time >= now){												// Ensures all forecasts are current or future
                     time = time.toLocaleString()
                     let windUnit = data.hourly_units.wind_speed_10m
                     if(windUnit == "mp/h"){
@@ -506,11 +513,23 @@
                         `
                 }
             })
-            document.querySelector('#dailyCards').innerHTML = dailyInnerHtml
-            document.querySelector('#hourlyCards').innerHTML = hourlyInnerHtml
-            document.querySelector('#querySettings').style = "display:none"
-            document.querySelector('#forecastData').style = "display:block"
+            document.querySelector('#dailyCards').innerHTML = dailyInnerHtml		// sets the daily forecast section's innerHtml to our newly generated daily cards
+            document.querySelector('#hourlyCards').innerHTML = hourlyInnerHtml		// sets the hourly forecast section's innerHtml to our newly generated hourly cards
+
+            document.querySelector('#querySettings').style = "display:none"			// Changes from displaying the query settings to displaying the forecasts after the
+            document.querySelector('#forecastData').style = "display:block"			// logic for the forecast page has been completed.
         })
     </script>
 </body>
 </html>
+
+<!-- 
+
+Generative AI was used for these purposes on this assignment:
+	- Generating an icon
+	- To help me learn more about making my page more accessible (did not generate code, used it for consideration of things I would not have thought of)
+	- To help me learn more about the difference in different display types
+
+Model used was ChatGPT 5.2
+
+-->
